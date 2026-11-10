@@ -25,7 +25,7 @@ An agent skill that gives your AI agent a clear, step-by-step way to edit short 
 ## 安裝（Claude Code）
 
 ```bash
-git clone https://github.com/<你的帳號>/short-video-skill.git
+git clone https://github.com/josenjc9/short-video-skill.git
 mkdir -p ~/.claude/skills
 cp -R short-video-skill/skill/short-video-edit ~/.claude/skills/
 ```
