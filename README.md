@@ -17,7 +17,7 @@ An agent skill that gives your AI agent a clear, step-by-step way to edit short 
 ## 裡面有什麼
 
 - `skill/short-video-edit/SKILL.md`：agent 讀的主文件，從前期到結案的完整流程，另有口播、預告片混剪、角色動畫、圖卡轉動態等情境的做法。
-- `skill/short-video-edit/references/`：剪輯語法、跨鏡頭連續性、聲畫與調色、退件與驗收格式、技法與工具目錄、轉場指南、動態圖形與 3D（Motion Graphics、轉場配方、Three.js；每項標明實測或依官方文件）。
+- `skill/short-video-edit/references/`：剪輯語法、跨鏡頭連續性、聲畫與調色、退件與驗收格式、技法與工具目錄、技法庫（畫中畫、蒙太奇、變速等）、轉場指南、動態圖形與 3D（Motion Graphics、轉場配方、Three.js；每項標明實測或依官方文件）。
 - `skill/short-video-edit/tools/`：8 個小工具，包含成片機檢、切點接觸圖、分鏡板、截圖找出處、字卡地雷掃描、文字比對、交付與安全移垃圾桶。
 
 這是分享與教學用的整理版，歡迎照你的作法調整。
