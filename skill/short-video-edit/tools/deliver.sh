@@ -8,6 +8,8 @@
 set -eu   # 不開 pipefail：下面量長度／音量的管線用 head -1，會讓上游被提早關閉而誤判失敗
 
 FFMPEG="${FFMPEG:-ffmpeg}"
+# macOS 用 md5 -q，Linux 用 md5sum
+md5f(){ if command -v md5 >/dev/null 2>&1; then md5 -q "$1"; else md5sum "$1" | cut -d" " -f1; fi; }
 [ $# -ge 4 ] || { sed -n 2,7p "$0"; exit 1; }
 SILENT="$1"; SFX="$2"; NAME="$3"; OUT="$4"; CRF="${5:-20}"
 case "$NAME" in */*|*..*|-*|"") echo "片名不可含 / 或 .. 或以 - 開頭"; exit 1;; esac
@@ -27,8 +29,8 @@ trap 'rm -rf "$TMP"' EXIT
 DUR="$("$FFMPEG" -hide_banner -i "$TMP/full.mp4" 2>&1 | grep -o 'Duration: [0-9:.]*' | head -1 || true)"
 MAXV="$("$FFMPEG" -hide_banner -i "$TMP/full.mp4" -af volumedetect -f null - 2>&1 | grep -o 'max_volume: [-0-9.]* dB' | head -1 || true)"
 cp "$TMP/full.mp4" "$OUT/$NAME.mp4"; cp "$TMP/light.mp4" "$OUT/${NAME}_輕量版.mp4"
-A="$(md5 -q "$TMP/full.mp4")"; B="$(md5 -q "$OUT/$NAME.mp4")"
-C="$(md5 -q "$TMP/light.mp4")"; D="$(md5 -q "$OUT/${NAME}_輕量版.mp4")"
+A="$(md5f "$TMP/full.mp4")"; B="$(md5f "$OUT/$NAME.mp4")"
+C="$(md5f "$TMP/light.mp4")"; D="$(md5f "$OUT/${NAME}_輕量版.mp4")"
 [ "$A" = "$B" ] && [ "$C" = "$D" ] || { echo "md5 對不上，複製有問題"; exit 2; }
 
 echo "完成：$OUT"

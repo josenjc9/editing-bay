@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=1920, height=1080"/>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#000}
+#root{position:relative;width:100%;height:100%;font-family:sans-serif;color:#fff}
+.stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:140px;font-weight:900}
+#s1{background:#2b6cb0}#s2{background:#c05621}#s3{background:#2f855a}#s4{background:#6b46c1}#s5{background:#b83280}#s6{background:#2d3748}
+#dip{position:absolute;inset:0;background:#000;opacity:0}
+#flood{position:absolute;inset:0;background:#f6e05e;transform-origin:left}
+#box{position:absolute;left:760px;top:340px;width:400px;height:400px;background:#fff;border-radius:40px}
+</style></head><body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="12" data-width="1920" data-height="1080">
+ <div id="s1" class="stage clip" data-start="0" data-duration="12" data-track-index="0"><span id="t1">PUNCH-IN</span></div>
+ <div id="s2" class="stage clip" data-start="0" data-duration="12" data-track-index="1"><span id="t2">BLUR SWAP</span></div>
+ <div id="s3" class="stage clip" data-start="0" data-duration="12" data-track-index="2"><span id="t3">IRIS</span></div>
+ <div id="s4" class="stage clip" data-start="0" data-duration="12" data-track-index="3"><span id="t4">WHIP</span></div>
+ <div id="s5" class="stage clip" data-start="0" data-duration="12" data-track-index="4"><span id="t5">FLOOD+DIP</span></div>
+ <div id="flood" class="clip" data-start="0" data-duration="12" data-track-index="5"></div>
+ <div id="dip" class="clip" data-start="0" data-duration="12" data-track-index="6"></div>
+</div>
+<script>
+const tl=gsap.timeline({paused:true});
+// start states: s2..s5 hidden
+gsap.set(["#s2","#s3","#s4","#s5"],{opacity:0});gsap.set("#flood",{scaleX:0});
+// 1 punch-in on wrapper-inner text: scale 1 -> 1.12 over 0.4s at t=1
+tl.fromTo("#t1",{scale:1},{scale:1.12,duration:0.4,ease:"power2.out",immediateRender:false},1.0);
+// 2 blur swap s1->s2 at t=2: out blur 8 + fade 0.16, in blur->0 0.13
+tl.to("#s1",{opacity:0,filter:"blur(8px)",duration:0.16,ease:"power2.in"},2.0);
+tl.fromTo("#s2",{opacity:0,filter:"blur(8px)"},{opacity:1,filter:"blur(0px)",duration:0.13,ease:"power2.out",immediateRender:false},2.1);
+// 3 iris s2->s3 at t=4: clip-path circle from point (960,540) in 0.6s
+tl.fromTo("#s3",{opacity:1,clipPath:"circle(0px at 960px 540px)"},{opacity:1,clipPath:"circle(1400px at 960px 540px)",duration:0.6,ease:"power2.inOut",immediateRender:false},4.0);
+tl.set("#s3",{opacity:1},4.0);
+// 4 whip s3->s4 at t=6: horizontal smear 0.2s
+tl.to("#s3",{x:-600,filter:"blur(30px)",opacity:0,duration:0.2,ease:"power3.in"},6.0);
+tl.fromTo("#s4",{opacity:0,x:600,filter:"blur(30px)"},{opacity:1,x:0,filter:"blur(0px)",duration:0.2,ease:"power3.out",immediateRender:false},6.1);
+// 5 dip cut at t=8 then color flood
+tl.to("#dip",{opacity:0.4,duration:0.1},7.9);
+tl.set("#s4",{opacity:0},8.0); tl.set("#s5",{opacity:1},8.0);
+tl.to("#dip",{opacity:0,duration:0.05},8.0);
+tl.to("#flood",{scaleX:1,duration:0.4,ease:"power2.inOut"},10.0);
+window.__timelines=window.__timelines||{};window.__timelines["main"]=tl;tl.seek(0);
+</script></body></html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<style>
+:root{--ground:#101418;--ink:#f4f1ea;--accent:#e8a33d;--font-display:sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--ground)}
+#root{position:relative;width:100%;height:100%;font-family:var(--font-display);color:var(--ink)}
+.abs{position:absolute}
+#count{left:120px;top:120px;font-size:200px;font-weight:900;font-variant-numeric:tabular-nums}
+#countlabel{left:130px;top:340px;font-size:40px;opacity:.8}
+#ba{left:1000px;top:100px;width:800px;height:450px;border-radius:16px;overflow:hidden}
+#ba .after,#ba .before{position:absolute;inset:0}
+#ba .before{background:linear-gradient(135deg,#555,#888)}
+#ba .after{background:linear-gradient(135deg,#e8a33d,#d4572e);clip-path:inset(0 100% 0 0)}
+#bar{left:1000px;top:100px;width:4px;height:450px;background:#fff;opacity:0}
+#input{left:120px;top:640px;width:900px;height:100px;border:3px solid var(--ink);border-radius:50px;font-size:44px;line-height:94px;padding:0 40px}
+#progress{left:120px;top:780px;width:900px;height:16px;border-radius:8px;background:#ffffff22;overflow:hidden}
+#progress i{display:block;height:100%;width:0;background:var(--accent)}
+#words{left:1000px;top:700px;font-size:84px;font-weight:900;display:flex;gap:24px}
+#words span{display:inline-block;opacity:0}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="8" data-width="1920" data-height="1080">
+  <div id="count" class="abs clip" data-start="0" data-duration="8" data-track-index="0">0</div>
+  <div id="countlabel" class="abs clip" data-start="0" data-duration="8" data-track-index="1">數字滾動</div>
+  <div id="ba" class="abs clip" data-start="0" data-duration="8" data-track-index="2"><div class="before"></div><div class="after"></div></div>
+  <div id="bar" class="abs clip" data-start="0" data-duration="8" data-track-index="3"></div>
+  <div id="input" class="abs clip" data-start="0" data-duration="8" data-track-index="4"><span id="typed"></span></div>
+  <div id="progress" class="abs clip" data-start="0" data-duration="8" data-track-index="5"><i></i></div>
+  <div id="words" class="abs clip" data-start="0" data-duration="8" data-track-index="6"><span>逐字</span><span>模糊</span><span>變清楚</span></div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+// 1 count-up 0 -> 1280 in 1.4s, then hold
+const c = {v:0};
+tl.to(c,{v:1280,duration:1.4,ease:"power3.out",onUpdate(){document.getElementById("count").textContent=Math.round(c.v).toLocaleString("en-US")}},0.3);
+// 2 before/after slider: bar moves left->right, after revealed by clip-path
+const W=800;
+tl.set("#bar",{opacity:1,x:0},0.5);
+const s={p:0};
+tl.to(s,{p:1,duration:2,ease:"power2.inOut",onUpdate(){
+  document.querySelector("#ba .after").style.clipPath="inset(0 "+((1-s.p)*100)+"% 0 0)";
+  document.getElementById("bar").style.transform="translateX("+(s.p*W)+"px)";
+}},0.5);
+// 3 typing + progress
+const full="幫我剪一支 30 秒的短影音";
+const t={n:0};
+tl.to(t,{n:full.length,duration:1.6,ease:"none",onUpdate(){document.getElementById("typed").textContent=full.slice(0,Math.round(t.n))}},1.0);
+tl.to("#progress i",{width:"100%",duration:2.4,ease:"power2.inOut"},1.0);
+// 4 per-word blur-in, 0.08s apart
+tl.fromTo("#words span",{opacity:0,filter:"blur(6px)"},{opacity:1,filter:"blur(0px)",duration:0.2,ease:"power4.out",stagger:0.08,immediateRender:false},2.0);
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+tl.seek(0);
+</script>
+</body>
+</html>

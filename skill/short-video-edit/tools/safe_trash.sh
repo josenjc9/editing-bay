@@ -7,14 +7,17 @@
 set -u
 [ $# -ge 1 ] || { sed -n 2,6p "$0"; exit 1; }
 TS="$(date +%Y%m%d_%H%M%S)"
+# 垃圾桶位置：macOS ~/.Trash；Linux ~/.local/share/Trash/files
+if [ "$(uname)" = "Darwin" ]; then TRASH="$HOME/.Trash"; else TRASH="${XDG_DATA_HOME:-$HOME/.local/share}/Trash/files"; fi
+mkdir -p "$TRASH"
 rc=0
 for p in "$@"; do
   if [ ! -e "$p" ]; then echo "✗ 不存在：$p"; rc=1; continue; fi
   base="$(basename "$p")"
-  dest="$HOME/.Trash/${TS}_${base}"
-  [ ! -e "$dest" ] || dest="$HOME/.Trash/${TS}_${RANDOM}_${base}"   # 同一秒同名也不蓋掉前一個
+  dest="$TRASH/${TS}_${base}"
+  [ ! -e "$dest" ] || dest="$TRASH/${TS}_${RANDOM}_${base}"   # 同一秒同名也不蓋掉前一個
   if mv -- "$p" "$dest" 2>/dev/null; then
-    [ -e "$dest" ] && [ ! -e "$p" ] && echo "✓ $p → 垃圾桶/${TS}_${base}" || { echo "✗ 移動後狀態不對：$p"; rc=1; }
+    [ -e "$dest" ] && [ ! -e "$p" ] && echo "✓ $p → ${TRASH}/${TS}_${base}" || { echo "✗ 移動後狀態不對：$p"; rc=1; }
   else
     echo "✗ 移動失敗：$p"; rc=1
   fi
