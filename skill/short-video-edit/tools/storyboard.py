@@ -39,6 +39,10 @@ else:
         times = [f"{dur * (i + 0.5) / a.count:.2f}" for i in range(a.count)]
     else:
         times = [f"{t:.2f}" for t in [x * a.every for x in range(int(dur // a.every) + 1)] if t < dur]
+# 每格高度先算好、全部統一（不同 ffmpeg 版本用 scale=W:-1 可能差 1px，會讓 hstack 失敗）
+_probe = subprocess.run([FFMPEG, "-hide_banner", "-i", a.video], capture_output=True, text=True).stderr
+_m = re.search(r"Video:.*?(\d{2,5})x(\d{2,5})", _probe)
+cell_h = max(2, int(round(a.width * int(_m.group(2)) / int(_m.group(1)))) // 2 * 2) if _m else -2
 n = len(times)
 cols = min(a.cols, n)
 rows = math.ceil(n / cols)
@@ -47,7 +51,7 @@ files = []
 for i, t in enumerate(times):
     p = os.path.join(tmp, f"{i:02d}.png")
     subprocess.run([FFMPEG, "-v", "error", "-y", "-ss", t, "-i", a.video, "-frames:v", "1",
-                    "-vf", f"scale={a.width}:-1", p], check=True)
+                    "-vf", f"scale={a.width}:{cell_h}", p], check=True)
     files.append(p)
 # 補空白格，讓每列一樣寬
 w = h = None
