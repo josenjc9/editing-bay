@@ -2,6 +2,11 @@ name: smoke
 on:
   push:
   pull_request:
+
+# 最小權限：測試只需要讀取程式碼，工作流程的 token 不給寫入
+permissions:
+  contents: read
+
 jobs:
   smoke:
     strategy:
@@ -11,6 +16,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Install ffmpeg (Linux)
         if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
