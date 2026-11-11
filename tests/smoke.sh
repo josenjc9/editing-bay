@@ -27,6 +27,10 @@ run "cuts_sheet.py" python3 -I "$TOOLS/cuts_sheet.py" "$T/a.mp4" "$T/cs.png" --t
 ff -ss 1 -i "$T/a.mp4" -frames:v 1 "$T/shot.png"
 run "find_frame.py" python3 -I "$TOOLS/find_frame.py" "$T/shot.png" "$T/a.mp4" "$T/b.mp4" --sdr
 run "hf_lint.py（範例）" python3 -I "$TOOLS/hf_lint.py" "$ROOT/examples/transitions/index.html"
+run "capcut_export.py 試跑（範例時間表）" python3 -I "$TOOLS/capcut_export.py" "$ROOT/examples/capcut-export-sample/spec.json" --dry-run
+sed 's/clip_b.mp4/nope.mp4/' "$ROOT/examples/capcut-export-sample/spec.json" > "$ROOT/examples/capcut-export-sample/_bad.json"
+if python3 -I "$TOOLS/capcut_export.py" "$ROOT/examples/capcut-export-sample/_bad.json" --dry-run >"$T/log.txt" 2>&1; then ng "capcut_export.py 缺素材應報錯"; else ok "capcut_export.py 缺素材會擋下"; fi
+rm -f "$ROOT/examples/capcut-export-sample/_bad.json"
 run "deliver.sh" bash "$TOOLS/deliver.sh" "$T/b.mp4" "$T/sfx.wav" smoke_test "$T/out"
 mkdir -p "$T/home"; echo x > "$T/junk.txt"
 run "safe_trash.sh" env HOME="$T/home" bash "$TOOLS/safe_trash.sh" "$T/junk.txt"

@@ -4,7 +4,7 @@
 # 用法：deliver.sh <無聲影片.mp4> <音效.wav> <片名_秒數> <輸出資料夾> [crf，預設 20]
 # 例：  deliver.sh out/silent.mp4 sfx.wav my_video_37s "$HOME/Videos/my-project/final"
 # 會產出（輸出資料夾裡）：<片名>.mp4 與 <片名>_輕量版.mp4。已存在的同名檔不會被覆蓋——先用 safe_trash.sh 移走。
-# 不會做的事：不清舊版、不寫定稿圖表（那些要等使用者點頭）。
+# 不會做的事：不清舊版、不寫定稿圖表（那些要等使用者批准）。
 set -eu   # 不開 pipefail：下面量長度／音量的管線用 head -1，會讓上游被提早關閉而誤判失敗
 
 FFMPEG="${FFMPEG:-ffmpeg}"

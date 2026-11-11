@@ -1,0 +1,19 @@
+/* 說明圖共用樣式：電影符號海報（Saul Bass 式剪紙色塊）＋瑞士格線（Müller-Brockmann 式秩序）。1080×1350。
+   少色：墨黑底、紙白、橘紅（主角與「要你決定」）、芥黃（次要）。大色塊用不規則邊緣模擬剪紙，細白線畫格線，大數字當節奏。
+   字體：Noto Sans CJK TC（Black／Medium）。不用漸層、陰影、圓角盒。 */
+:root{--ink:#111010;--paper:#F2E9D8;--org:#F0552B;--mus:#F2B632;--dim:#8F877A;--rule:#4A4640}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1350px;background:var(--ink);color:var(--paper);
+  font-family:'Noto Sans CJK TC','Noto Sans TC','PingFang TC',sans-serif;-webkit-font-smoothing:antialiased}
+.page{position:relative;width:1080px;height:1350px;padding:60px 72px;overflow:hidden}
+.grain{position:absolute;inset:0;opacity:.10;mix-blend-mode:screen;pointer-events:none}
+.head{display:flex;justify-content:space-between;font-size:23px;font-weight:500;letter-spacing:.14em;color:var(--dim);
+  border-bottom:2px solid var(--paper);padding-bottom:16px}
+.head b{color:var(--paper);font-weight:700}
+h1{font-weight:900;font-size:112px;line-height:1.08;margin-top:40px;letter-spacing:-.015em}
+h1 em{font-style:normal;color:var(--org)}
+.lead{margin-top:22px;font-size:32px;line-height:1.5;font-weight:500;color:var(--dim)}
+.lead b{color:var(--paper);font-weight:700}
+.cut{position:absolute}
+.foot{position:absolute;left:72px;right:72px;bottom:48px;display:flex;justify-content:space-between;font-size:22px;letter-spacing:.14em;color:var(--dim);
+  border-top:1px solid var(--rule);padding-top:14px}

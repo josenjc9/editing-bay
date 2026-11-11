@@ -1,0 +1,96 @@
+{
+  "name": "範例_分軌草稿",
+  "size": [
+    1920,
+    1080
+  ],
+  "fps": 30,
+  "drafts_dir": "~/CapCut範例草稿",
+  "media_dir": "~/Movies/capcut_export_sample",
+  "tracks": [
+    {
+      "type": "video",
+      "name": "畫面",
+      "segments": [
+        {
+          "src": "clip_a.mp4",
+          "in": 0,
+          "dur": 4,
+          "at": 0,
+          "zoom": [
+            1.0,
+            1.3
+          ],
+          "look": {
+            "contrast": 0.1
+          }
+        },
+        {
+          "src": "clip_b.mp4",
+          "in": 1,
+          "dur": 3,
+          "at": 4,
+          "speed": 0.75
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "字卡",
+      "segments": [
+        {
+          "text": "第一段",
+          "at": 0.5,
+          "dur": 3,
+          "pos": [
+            -0.7,
+            -0.7
+          ],
+          "size": 5
+        },
+        {
+          "text": "第二段",
+          "at": 4.5,
+          "dur": 2.5,
+          "pos": [
+            -0.7,
+            -0.7
+          ],
+          "size": 5
+        }
+      ]
+    },
+    {
+      "type": "audio",
+      "name": "配樂",
+      "segments": [
+        {
+          "src": "music.mp3",
+          "at": 0,
+          "dur": 7,
+          "volume": 0.3,
+          "fade": [
+            0.5,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "type": "audio",
+      "name": "音效",
+      "segments": [
+        {
+          "src": "click.mp3",
+          "at": 0.5,
+          "dur": 0.3
+        },
+        {
+          "src": "click.mp3",
+          "at": 4.5,
+          "dur": 0.3
+        }
+      ]
+    }
+  ]
+}

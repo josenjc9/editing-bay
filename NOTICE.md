@@ -20,6 +20,7 @@
 | PySceneDetect | 找切點（選用） | BSD-3-Clause |
 | Auto-Editor | 剪空白氣口（選用） | Unlicense |
 | librosa | 抓拍點與 BPM（選用） | ISC |
+| pycapcut | `capcut_export.py` 寫剪映草稿（選用） | 套件中繼資料未標授權，請裝前自己到其倉庫確認 |
 | HyperFrames | 字卡與動畫範例（選用） | 見其官方網站與倉庫 |
 | GSAP、Three.js | `examples/` 內由 CDN 載入 | 見各自官方授權條款 |
 

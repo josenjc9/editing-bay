@@ -1,0 +1,34 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><link rel="stylesheet" href="bass.css">
+<style>
+.sym{position:absolute;left:72px;top:520px;width:936px;height:330px}
+.sym .stem{left:0;top:136px;width:372px;height:58px;background:var(--paper)}
+.sym .a{left:300px;top:0;width:636px;height:140px;background:var(--mus)}
+.sym .b{left:300px;top:190px;width:636px;height:140px;background:var(--org)}
+.lab{position:absolute;font-weight:900;color:var(--ink);line-height:84px;height:84px}
+.cols{position:absolute;left:72px;right:72px;top:880px;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rule)}
+.col{padding:22px 0 0}.col+.col{padding-left:32px;border-left:1px solid var(--rule)}
+.col .k{font-size:23px;letter-spacing:.14em;font-weight:700}
+.col h3{font-size:50px;font-weight:900;margin-top:6px;line-height:1.15}
+.col p{font-size:27px;color:var(--dim);font-weight:500;margin-top:10px;line-height:1.5}
+.both{position:absolute;left:72px;right:72px;top:1150px;height:84px;background:var(--paper);color:var(--ink);display:flex;align-items:center;padding:0 28px;font-size:30px;font-weight:900;gap:18px}
+.both span{font-weight:500;font-size:26px}
+</style></head><body><div class="page"><svg class="grain" width="1080" height="1350"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+<div class="head"><span><b>SHORT VIDEO EDIT</b>　輸出</span><span>02—03</span></div>
+<h1>剪完之後<br><em>成品方式由你決定</em></h1>
+<div class="lead"><b>成片直接產出，或轉成專案草稿，導進剪映自己精剪</b></div>
+<div class="sym">
+  <div class="cut stem"></div>
+  <div class="cut a" data-shape="arrow"></div>
+  <div class="cut b" data-shape="arrow"></div>
+  <div class="lab" style="left:20px;top:136px;height:58px;font-size:30px;line-height:58px;white-space:nowrap">素材＋需求＝AI 剪輯</div>
+  <div class="lab" style="left:340px;top:28px;font-size:46px">輸出 A</div>
+  <div class="lab" style="left:510px;top:28px;font-size:33px">很棒！直接輸出成品</div>
+  <div class="lab" style="left:340px;top:218px;font-size:46px">輸出 B</div>
+  <div class="lab" style="left:510px;top:218px;font-size:33px">展現真正的技術！轉草稿</div>
+</div>
+<div class="cols">
+  <div class="col"><div class="k" style="color:var(--mus)">A</div><h3>直接輸出影片</h3><p>渲染、機檢、逐張看圖，交付 mp4</p></div>
+  <div class="col"><div class="k" style="color:var(--org)">B</div><h3>導進剪映</h3><p>各軌分開，修完再精剪</p></div>
+</div>
+<div class="cut both">我全都要！<span>同時出成品與專案草稿</span></div>
+</div><script src="jitter.js"></script></body></html>
