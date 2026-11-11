@@ -3,21 +3,59 @@
 把你的 AI agent 變成會剪短影音的好幫手。
 *An agent skill that gives your AI agent a clear, step-by-step way to edit short videos.*
 
-**[⬇ 直接下載 skill（ZIP，不需要 GitHub 帳號）](https://github.com/josenjc9/short-video-skill/releases/latest/download/short-video-edit.zip)**　｜　[下載整個專案（含範例與測試）](https://github.com/josenjc9/short-video-skill/archive/refs/heads/main.zip)
+<p>
+  <a href="https://github.com/josenjc9/short-video-skill/stargazers"><img src="https://img.shields.io/github/stars/josenjc9/short-video-skill?style=social" alt="GitHub stars"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT"></a>
+  <a href="https://github.com/josenjc9/short-video-skill/actions/workflows/ci.yml"><img src="https://github.com/josenjc9/short-video-skill/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+</p>
 
-下載、放進 agent 的 skills 資料夾，對它說一句「幫我剪一支短影音」，它就會照著一套完整流程，從確認需求、排鏡頭、做字卡，到檢查成片、整理交付，一步一步陪你做完。
+如果這個 skill 有幫到你，點右上角的 **⭐ Star**，讓更多人找得到。
+
+放進 agent 的 skills 資料夾，對它說一句「幫我剪一支短影音」，它就會照著一套完整流程，從確認需求、排鏡頭、做字卡，到檢查成片、整理交付，一步一步陪你做完。安裝與用法見[使用說明](#使用說明)。
 
 適合：短影音、廣告片、解說片、口播片、預告片混剪、Reels。用你自己的真實素材為主，也能加上動畫與字卡。
 
-<p align="center"><img src="docs/card-workflow.jpg" width="560" alt="剪輯流程：8 個步驟，要你批准的關卡標成橘色"></p>
+**導覽：** [使用說明](#使用說明) · [流程](#流程) · [成品方式](#成品方式由你決定) · [工具與軟體](#工具與軟體) · [驗證](#驗證了什麼沒驗證什麼)
 
-## 你說一句，agent 做一段
+## 使用說明
+
+四步開工：
+
+<p align="center"><img src="docs/card-quickstart.jpg" width="560" alt="使用說明：四步開工"></p>
+
+### 安裝
+
+```bash
+git clone https://github.com/josenjc9/short-video-skill.git
+mkdir -p ~/.claude/skills
+cp -R short-video-skill/skill/short-video-edit ~/.claude/skills/
+```
+
+Claude Code 的 skills 資料夾是 `~/.claude/skills/`；其他 agent 的路徑請查它的說明。放好後對它說「幫我剪一支短影音」。
+
+**不用 git？** 用 GitHub 頁面右上角的 **Code → Download ZIP**，解壓縮後把 `skill/short-video-edit` 資料夾放進 agent 的 skills 資料夾就行。
+
+### 需要什麼
+
+看你要做哪條路線，裝對應的東西就好：
+
+| 你要做 | 需要 |
+|---|---|
+| 基本剪輯、機檢、輸出 A（成品 mp4） | `ffmpeg`（含 `ffprobe`）、`python3` |
+| 字卡與動畫 | 上面那些，加 [HyperFrames](https://hyperframes.heygen.com)（需要 Node.js 22+） |
+| 輸出 B（剪映草稿） | 上面那些，加 `pycapcut`（Python 3.9+，會一併裝 `pymediainfo`、`imageio`、`numpy`、`Pillow`），以及剪映 App 本身才能開草稿 |
+| 成片文字對稿 | macOS 與 `swiftc`（`ocr_check.py`） |
+| 口播片、音源與切點 | 依 `SKILL.md` 另外裝：去人聲、語音轉文字、剪氣口、找切點、抓拍點 |
+
+兩個輸出可以任選，也可以都要；選了輸出 B 才需要裝 `pycapcut`。`pycapcut` 在乾淨的 Python 3.9 虛擬環境裡 `pip install pycapcut==0.0.4` 後，範例時間表能寫出草稿（2026-11-11 實測）；它帶進來的 Pillow 等套件請自己檢查版本與安全公告。**裝任何工具前請先確認來源與授權。**
+
+### 你說一句，agent 做一段
 
 不用背流程，照 [PROMPTS.md](PROMPTS.md) 的順序貼句子就行。常用的幾句：
 
 | 你說 | agent 會做 |
 |---|---|
-| 「幫我剪一支短影音，素材在 <資料夾>」 | 盤點素材做接觸表，列出要你決定的事，停下來等你 |
+| 「幫我剪一支短影音，素材在 ＜資料夾＞」 | 盤點素材做接觸表，列出要你決定的事，停下來等你 |
 | 「要電影感預告片」 | 先問情緒（激勵、溫情、懸疑），給三種字卡玩法的 5 秒比較片 |
 | 「剪我講話的影片，上字幕」 | 人聲分離、逐字稿對時間、字幕規格自查，字幕不比講的少字 |
 | 「介紹這個軟體，這是我錄的畫面」 | 取段前量逐格差異、框與運鏡的節奏規則、字卡固定位置 |
@@ -26,7 +64,18 @@
 
 每次停下來，agent 回覆的最後兩行固定是「停在哪、請看什麼／請回什麼」，你不用讀長文。
 
-## 剪完之後，成品方式由你決定
+## 流程
+
+每個關口都停下來問你，你批准才往下走；想一次做完，說「全授權，不用停」。
+
+<p align="center"><img src="docs/card-workflow.jpg" width="560" alt="剪輯流程：8 個步驟，要你批准的關卡標成橘色"></p>
+
+- **先對齊，再動手**：agent 會在幾個關鍵點停下來，請你確認事實、風格和鏡頭表。你批准的版本，就是它往下做的依據。
+- **做完會自己先看一輪**：解析度、爆音、黑畫面、字幕有沒有壓到臉，先由工具和檢查表篩過一遍，再交給你。
+- **做不到的，會直接告訴你**：沒驗證過的做法會標明，不會把嘗試說成保證。
+- **每一次都留得下來**：交付資料夾、分鏡板、原始碼、覆盤都有固定位置，下一支片可以接著用。
+
+## 成品方式由你決定
 
 前面的確認關卡都一樣，做完之後怎麼收，每次由你選：
 
@@ -39,14 +88,12 @@
 
 試試看（不需要安裝任何東西）：`python3 skill/short-video-edit/tools/capcut_export.py examples/capcut-export-sample/spec.json --dry-run`。要真的寫草稿，先自己安裝 `pycapcut`（裝前請確認來源與授權），再拿掉 `--dry-run`。上圖是這個工具產出的 58.9 秒草稿在剪映裡開起來的時間軸（實際截圖）。範例時間表是 7 秒：2 段畫面、2 張字卡、1 首配樂、2 個音效。草稿只放素材與時間，**遮罩聚焦、定位框、自製調色不在草稿裡**，要的話在剪映自己補；開起來的樣子也請你自己在剪映確認。圖的 HTML 原始碼在 `docs/src/`。
 
-## 用起來會是這樣
+## 工具與軟體
 
-- **先對齊，再動手**：agent 會在幾個關鍵點停下來，請你確認事實、風格和鏡頭表。你批准的版本，就是它往下做的依據。
-- **做完會自己先看一輪**：解析度、爆音、黑畫面、字幕有沒有壓到臉，先由工具和檢查表篩過一遍，再交給你。
-- **做不到的，會直接告訴你**：沒驗證過的做法會標明，不會把嘗試說成保證。
-- **每一次都留得下來**：交付資料夾、分鏡板、原始碼、覆盤都有固定位置，下一支片可以接著用。
+<p align="center"><img src="docs/card-tools.jpg" width="560" alt="9 個內建工具各管一件事"></p>
+<p align="center"><img src="docs/card-engines.jpg" width="560" alt="搭配的軟體：照對成片質感的幫助排序"></p>
 
-## 裡面有什麼
+### 裡面有什麼
 
 | 位置 | 內容 |
 |---|---|
@@ -56,6 +103,7 @@
 | `examples/` | 3 個可直接渲染的 HyperFrames 範例：動態圖形技法、轉場、Three.js 3D |
 | `tests/smoke.sh` | 煙霧測試：用合成影片跑 tools 與文件裡的 ffmpeg 指令（含 58 種 `xfade` 轉場） |
 
+
 ### 範例畫面（都是用 `examples/` 的原始碼渲染、逐格看過的結果）
 
 | 動態圖形技法 | 轉場 | Three.js 3D |
@@ -63,22 +111,6 @@
 | ![](docs/demo-motion-techniques.jpg) | ![](docs/demo-transitions.jpg) | ![](docs/demo-three-dive.jpg) |
 
 數字滾動、前後對比拉桿、打字輸入框加進度條、逐字模糊進場；模糊交換、從點擊處開圈、甩鏡、暗角切、整片換色；Three.js 鏡頭穿越。
-
-## 安裝
-
-**不用 GitHub**：點上面的「直接下載 skill」，解壓縮，把 `short-video-edit` 資料夾放進你的 agent 的 skills 資料夾（Claude Code 是 `~/.claude/skills/`；其他 agent 的路徑請查它的說明），然後對它說「幫我剪一支短影音」。
-
-**用 git**：
-```bash
-git clone https://github.com/josenjc9/short-video-skill.git
-mkdir -p ~/.claude/skills
-cp -R short-video-skill/skill/short-video-edit ~/.claude/skills/
-```
-
-## 需要什麼
-
-- 必要：`ffmpeg`、`python3`
-- 選用：`ocr_check.py` 需要 macOS 與 `swiftc`；字卡與動畫範例用 [HyperFrames](https://hyperframes.heygen.com)（需要 Node.js 22+）；去人聲、找切點、剪氣口依 SKILL.md 說明另外安裝。**裝任何工具前請先確認來源與授權。**
 
 ## 驗證了什麼、沒驗證什麼
 
@@ -97,6 +129,10 @@ cp -R short-video-skill/skill/short-video-edit ~/.claude/skills/
 - 工具負責能算的部分（解析度、爆音、黑畫面…），畫面好不好看，留給你的眼睛。
 - 來源與第三方授權見 [NOTICE.md](NOTICE.md)；方法借鏡了 auto-edit-workspace 與 rea-video 的思路，用自己的寫法重做，沒有複製檔案或模板。
 - 授權：MIT。回報問題與資安事項見 [SECURITY.md](SECURITY.md)；版本紀錄見 [CHANGELOG.md](CHANGELOG.md)。
+
+如果這個專案對你有用，歡迎給它一顆 ⭐，也歡迎開 issue 告訴我哪裡不好用。
+
+---
 
 ---
 

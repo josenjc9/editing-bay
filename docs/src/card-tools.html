@@ -1,0 +1,28 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><link rel="stylesheet" href="bass.css">
+<style>
+.list{margin-top:34px;border-top:2px solid var(--paper);display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(5,150px);grid-auto-flow:row}
+.c{position:relative;padding:18px 0 0 0;display:grid;grid-template-columns:78px 1fr;column-gap:6px;border-bottom:1px solid var(--rule)}
+.c:nth-child(even){padding-left:26px;border-left:1px solid var(--rule)}
+.n{font-weight:900;font-size:56px;line-height:1;color:transparent;-webkit-text-stroke:2px var(--dim)}
+.t h3{font-size:36px;font-weight:900;line-height:1.2}
+.t p{font-size:23px;color:var(--paper);font-weight:500;margin-top:6px;line-height:1.35}
+.f{margin-top:6px;font-family:'JetBrains Mono','SF Mono',Menlo,monospace;font-size:19px;color:var(--org);font-weight:700;letter-spacing:.02em}
+.c.last{grid-template-columns:1fr;background:var(--org);color:var(--ink);padding:18px 24px 0 110px;border-left:0}
+.c.last h3{font-size:38px}.c.last p{color:var(--ink);font-size:25px;font-weight:700}
+</style></head><body><div class="page"><svg class="grain" width="1080" height="1350"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+<div class="head"><span><b>SHORT VIDEO EDIT</b>　Skill 工具</span><span>05—06</span></div>
+<h1>9 個內建工具<br><em>各管一件事</em></h1>
+<div class="lead"><b>單檔腳本</b>，放在 tools/ 資料夾，直接執行</div>
+<div class="list">
+ <div class="c"><div class="n">01</div><div class="t"><h3>成片機檢</h3><p>解析度、爆音、黑畫面、凍結</p><div class="f">qa_video.py</div></div></div>
+ <div class="c"><div class="n">02</div><div class="t"><h3>切點接觸圖</h3><p>每個切點前後各抽 2 格</p><div class="f">cuts_sheet.py</div></div></div>
+ <div class="c"><div class="n">03</div><div class="t"><h3>分鏡板</h3><p>從影片抽格拼成一張圖</p><div class="f">storyboard.py</div></div></div>
+ <div class="c"><div class="n">04</div><div class="t"><h3>截圖找出處</h3><p>這張圖是哪支影片第幾秒</p><div class="f">find_frame.py</div></div></div>
+ <div class="c"><div class="n">05</div><div class="t"><h3>字卡地雷掃描</h3><p>不渲染，先查動畫寫法</p><div class="f">hf_lint.py</div></div></div>
+ <div class="c"><div class="n">06</div><div class="t"><h3>文字對稿</h3><p>成片上的字對照原稿逐句核</p><div class="f">ocr_check.py</div></div></div>
+ <div class="c"><div class="n">07</div><div class="t"><h3>交付</h3><p>合音效、壓輕量版、核 md5</p><div class="f">deliver.sh</div></div></div>
+ <div class="c"><div class="n">08</div><div class="t"><h3>安全清理</h3><p>移垃圾桶，不直接刪</p><div class="f">safe_trash.sh</div></div></div>
+ <div class="c"><div class="n">09</div><div class="t"><h3>剪映草稿</h3><p>分軌寫成草稿，導進剪映</p><div class="f">capcut_export.py</div></div></div>
+ <div class="c last"><div class="t"><h3>讓 AI 去執行剪輯</h3><p>品質由你把關</p></div></div>
+</div>
+</div><script src="jitter.js"></script></body></html>

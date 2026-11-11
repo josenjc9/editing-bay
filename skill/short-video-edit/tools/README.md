@@ -11,7 +11,7 @@
 | `hf_lint.py` | HyperFrames `index.html` 的地雷掃描（靜態查，不渲染）：檔案截斷、變數撞名、媒體元素缺屬性、選擇器選不到、set 蓋 from、缺 immediateRender、小字級 | python3 |
 | `ocr_check.py` | 成片畫面上的字 vs 原稿，用 macOS 內建文字辨識逐句核；另列「成片有、原稿沒有」的字 | macOS、swiftc（第一次跑自己編 `ocr.swift`） |
 | `deliver.sh` | 合音效、壓輕量版、複製到交付資料夾、md5 核對；同名檔不覆蓋 | ffmpeg |
-| `capcut_export.py` | 把「分軌時間表」json 寫成 CapCut（剪映國際版）草稿：畫面、字卡、配樂、音效各自一軌，帶去剪映細修（輸出 B）。`--dry-run` 只檢查不寫檔 | python3；寫草稿另需自己安裝 `pycapcut` |
+| `capcut_export.py` | 把「分軌時間表」json 寫成 CapCut（剪映國際版）草稿：畫面、字卡、配樂、音效各自一軌，帶去剪映細修（輸出 B）。`--dry-run` 只檢查不寫檔 | python3；寫草稿另需自己安裝 `pycapcut`（Python 3.9+），開草稿需剪映 App |
 | `safe_trash.sh` | 檔案或資料夾移垃圾桶，同名不靜默略過、逐個印結果，不清空垃圾桶 | macOS 或 Linux |
 
 每支用 `--help` 或不帶參數看用法。

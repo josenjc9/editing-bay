@@ -4,7 +4,7 @@
 用途：AI 先把骨架剪好（輸出 B），細修在 CapCut 做；直出 mp4 是輸出 A，兩條路看這次要哪個。
 這支只負責「依時間表放軌道」，不判斷剪輯好壞；畫面效果（遮罩聚焦、定位框、調色）不會重現，要在 CapCut 自己補。
 
-需要：python3.9 以上，與第三方套件 pycapcut（`pip install pycapcut`，建議裝在獨立的虛擬環境；裝前請自己確認來源與授權）。
+需要：python3.9 以上，與第三方套件 pycapcut（`pip install pycapcut`，會一併裝 pymediainfo、imageio、numpy、Pillow；建議裝在獨立的虛擬環境，裝前請自己確認來源與授權、檢查這些套件的版本）。
   python3 capcut_export.py spec.json [--dry-run] [--drafts-dir 資料夾]
   `--dry-run` 只檢查時間表、列軌道統計，不需要安裝 pycapcut。
 

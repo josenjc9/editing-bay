@@ -1,0 +1,30 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><link rel="stylesheet" href="bass.css">
+<style>
+.list{margin-top:34px;border-top:2px solid var(--paper);display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(5,182px);grid-auto-flow:row}
+.c{position:relative;padding:26px 0 0 0;display:grid;grid-template-columns:78px 1fr;column-gap:6px;border-bottom:1px solid var(--rule)}
+.c:nth-child(even){padding-left:26px;border-left:1px solid var(--rule)}
+.n{font-weight:900;font-size:56px;line-height:1;color:transparent;-webkit-text-stroke:2px var(--dim)}
+.must .n{color:var(--org);-webkit-text-stroke:0}
+.t h3{font-size:36px;font-weight:900;line-height:1.2}
+.t p{font-size:23px;color:var(--paper);font-weight:500;margin-top:6px;line-height:1.35;padding-right:10px}
+.tag{position:absolute;right:0;top:20px;font-size:20px;font-weight:900;padding:3px 12px;border:2px solid var(--dim);color:var(--dim)}
+.must .tag{background:var(--org);border-color:var(--org);color:var(--ink)}
+.plus .tag{border-color:var(--paper);color:var(--paper)}
+.plus .n{-webkit-text-stroke:2px var(--paper)}
+</style></head><body><div class="page"><svg class="grain" width="1080" height="1350"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+<div class="head"><span><b>SHORT VIDEO EDIT</b>　軟體</span><span>06—06</span></div>
+<h1>搭配的<em>軟體</em></h1>
+<div class="lead"><b>讓成片更專業的軟體</b>，照對質感的幫助排序</div>
+<div class="list">
+ <div class="c must"><div class="n">01</div><div class="t"><h3>ffmpeg</h3><p>電影感調色、轉場、混音、輸出</p></div><span class="tag">核心</span></div>
+ <div class="c must"><div class="n">02</div><div class="t"><h3>HyperFrames</h3><p>專業字卡、動態圖形、轉場特效</p></div><span class="tag">核心</span></div>
+ <div class="c plus"><div class="n">03</div><div class="t"><h3>GSAP</h3><p>動畫的速度曲線與節奏手感</p></div><span class="tag">加分</span></div>
+ <div class="c plus"><div class="n">04</div><div class="t"><h3>Three.js</h3><p>3D 物件與鏡頭穿越</p></div><span class="tag">加分</span></div>
+ <div class="c plus"><div class="n">05</div><div class="t"><h3>demucs</h3><p>乾淨的聲音：去人聲、保環境聲</p></div><span class="tag">加分</span></div>
+ <div class="c plus"><div class="n">06</div><div class="t"><h3>whisper</h3><p>逐字稿，字幕的底稿</p></div><span class="tag">加分</span></div>
+ <div class="c"><div class="n">07</div><div class="t"><h3>Auto-Editor</h3><p>剪掉空白氣口，節奏更俐落</p></div><span class="tag">效率</span></div>
+ <div class="c"><div class="n">08</div><div class="t"><h3>PySceneDetect</h3><p>自動找切點，整理素材</p></div><span class="tag">效率</span></div>
+ <div class="c"><div class="n">09</div><div class="t"><h3>librosa</h3><p>抓拍點，剪點踩節拍</p></div><span class="tag">效率</span></div>
+ <div class="c"><div class="n">10</div><div class="t"><h3>pycapcut</h3><p>草稿導進剪映精剪（輸出 B）</p></div><span class="tag">效率</span></div>
+</div>
+</div><script src="jitter.js"></script></body></html>
