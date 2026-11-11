@@ -1,12 +1,12 @@
-# short-video-skill
+# editing-bay　剪輯機房
 
 把你的 AI agent 變成會剪短影音的好幫手。
 *An agent skill that gives your AI agent a clear, step-by-step way to edit short videos.*
 
 <p>
-  <a href="https://github.com/josenjc9/short-video-skill/stargazers"><img src="https://img.shields.io/github/stars/josenjc9/short-video-skill?style=social" alt="GitHub stars"></a>
+  <a href="https://github.com/josenjc9/editing-bay/stargazers"><img src="https://img.shields.io/github/stars/josenjc9/editing-bay?style=social" alt="GitHub stars"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT"></a>
-  <a href="https://github.com/josenjc9/short-video-skill/actions/workflows/ci.yml"><img src="https://github.com/josenjc9/short-video-skill/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/josenjc9/editing-bay/actions/workflows/ci.yml"><img src="https://github.com/josenjc9/editing-bay/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
 </p>
 
 如果這個 skill 有幫到你，點右上角的 **⭐ Star**，讓更多人找得到。
@@ -26,14 +26,14 @@
 ### 安裝
 
 ```bash
-git clone https://github.com/josenjc9/short-video-skill.git
+git clone https://github.com/josenjc9/editing-bay.git
 mkdir -p ~/.claude/skills
-cp -R short-video-skill/skill/short-video-edit ~/.claude/skills/
+cp -R editing-bay/skill/editing-bay ~/.claude/skills/
 ```
 
 Claude Code 的 skills 資料夾是 `~/.claude/skills/`；其他 agent 的路徑請查它的說明。放好後對它說「幫我剪一支短影音」。
 
-**不用 git？** 用 GitHub 頁面右上角的 **Code → Download ZIP**，解壓縮後把 `skill/short-video-edit` 資料夾放進 agent 的 skills 資料夾就行。
+**不用 git？** 用 GitHub 頁面右上角的 **Code → Download ZIP**，解壓縮後把 `skill/editing-bay` 資料夾放進 agent 的 skills 資料夾就行。
 
 ### 需要什麼
 
@@ -86,7 +86,7 @@ Claude Code 的 skills 資料夾是 `~/.claude/skills/`；其他 agent 的路徑
 <p align="center"><img src="docs/card-exits.jpg" width="560" alt="兩個輸出：直接輸出影片，或導進剪映"></p>
 <p align="center"><img src="docs/card-tracks.jpg" width="560" alt="剪映時間軸實拍：每種素材各自一軌"></p>
 
-試試看（不需要安裝任何東西）：`python3 skill/short-video-edit/tools/capcut_export.py examples/capcut-export-sample/spec.json --dry-run`。要真的寫草稿，先自己安裝 `pycapcut`（裝前請確認來源與授權），再拿掉 `--dry-run`。上圖是這個工具產出的 58.9 秒草稿在剪映裡開起來的時間軸（實際截圖）。範例時間表是 7 秒：2 段畫面、2 張字卡、1 首配樂、2 個音效。草稿只放素材與時間，**遮罩聚焦、定位框、自製調色不在草稿裡**，要的話在剪映自己補；開起來的樣子也請你自己在剪映確認。圖的 HTML 原始碼在 `docs/src/`。
+試試看（不需要安裝任何東西）：`python3 skill/editing-bay/tools/capcut_export.py examples/capcut-export-sample/spec.json --dry-run`。要真的寫草稿，先自己安裝 `pycapcut`（裝前請確認來源與授權），再拿掉 `--dry-run`。上圖是這個工具產出的 58.9 秒草稿在剪映裡開起來的時間軸（實際截圖）。範例時間表是 7 秒：2 段畫面、2 張字卡、1 首配樂、2 個音效。草稿只放素材與時間，**遮罩聚焦、定位框、自製調色不在草稿裡**，要的話在剪映自己補；開起來的樣子也請你自己在剪映確認。圖的 HTML 原始碼在 `docs/src/`。
 
 ## 工具與軟體
 
@@ -97,9 +97,9 @@ Claude Code 的 skills 資料夾是 `~/.claude/skills/`；其他 agent 的路徑
 
 | 位置 | 內容 |
 |---|---|
-| `skill/short-video-edit/SKILL.md` | agent 讀的主文件：從前期到結案的完整流程與規矩 |
-| `skill/short-video-edit/references/` | 14 份參考：剪輯語法、跨鏡頭連續性、聲畫與調色、退件格式、**技法庫**（畫中畫、蒙太奇、變速…）、**轉場指南**、**動態圖形與 3D**、技法與工具目錄，以及 6 種情境的做法（口播、預告片、時間流逝、角色動畫、圖卡轉動態、螢幕錄影產品展示） |
-| `skill/short-video-edit/tools/` | 9 個小工具：成片機檢、切點接觸圖、分鏡板、截圖找出處、字卡地雷掃描、文字比對、交付、安全移垃圾桶、剪映草稿輸出 |
+| `skill/editing-bay/SKILL.md` | agent 讀的主文件：從前期到結案的完整流程與規矩 |
+| `skill/editing-bay/references/` | 14 份參考：剪輯語法、跨鏡頭連續性、聲畫與調色、退件格式、**技法庫**（畫中畫、蒙太奇、變速…）、**轉場指南**、**動態圖形與 3D**、技法與工具目錄，以及 6 種情境的做法（口播、預告片、時間流逝、角色動畫、圖卡轉動態、螢幕錄影產品展示） |
+| `skill/editing-bay/tools/` | 9 個小工具：成片機檢、切點接觸圖、分鏡板、截圖找出處、字卡地雷掃描、文字比對、交付、安全移垃圾桶、剪映草稿輸出 |
 | `examples/` | 3 個可直接渲染的 HyperFrames 範例：動態圖形技法、轉場、Three.js 3D |
 | `tests/smoke.sh` | 煙霧測試：用合成影片跑 tools 與文件裡的 ffmpeg 指令（含 58 種 `xfade` 轉場） |
 
@@ -138,4 +138,4 @@ Claude Code 的 skills 資料夾是 `~/.claude/skills/`；其他 agent 的路徑
 
 ## English summary
 
-A self-contained skill (`SKILL.md` + 14 reference docs + 9 small tools) that gives an AI coding agent a gated workflow for editing short videos: confirm goal → script → shot list → inventory and tests → rough cut → build → self-check → deliver. Every gate waits for the user's approval. Includes a technique library (picture-in-picture, montage, speed ramps…), a transitions guide (all 58 ffmpeg `xfade` types run in the smoke test), motion-graphics and 3D (Three.js) notes, three renderable HyperFrames examples, and a smoke-test suite run by CI. Written in Traditional Chinese because the checklists include CJK title-card and subtitle typography rules. Download the ZIP from the Releases page and drop `short-video-edit/` into your agent's skills folder. MIT licensed.
+A self-contained skill (`SKILL.md` + 14 reference docs + 9 small tools) that gives an AI coding agent a gated workflow for editing short videos: confirm goal → script → shot list → inventory and tests → rough cut → build → self-check → deliver. Every gate waits for the user's approval. Includes a technique library (picture-in-picture, montage, speed ramps…), a transitions guide (all 58 ffmpeg `xfade` types run in the smoke test), motion-graphics and 3D (Three.js) notes, three renderable HyperFrames examples, and a smoke-test suite run by CI. Written in Traditional Chinese because the checklists include CJK title-card and subtitle typography rules. Download the ZIP from the Releases page and drop `editing-bay/` into your agent's skills folder. MIT licensed.

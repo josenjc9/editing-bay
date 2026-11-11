@@ -4,7 +4,7 @@
 # 它只證明「指令與工具能跑、輸出規格正確」，不判斷畫面好不好看。
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-TOOLS="$ROOT/skill/short-video-edit/tools"
+TOOLS="$ROOT/skill/editing-bay/tools"
 T="$(mktemp -d)"; trap 'rm -rf "$T"' EXIT
 pass=0; fail=0
 ok(){ echo "  ✓ $1"; pass=$((pass+1)); }
