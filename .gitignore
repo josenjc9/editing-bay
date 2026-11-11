@@ -5,3 +5,6 @@ bin/
 .env
 *.mp4
 *.mov
+
+# 範例時間表要用的小片段，例外放行
+!examples/capcut-export-sample/*.mp4
