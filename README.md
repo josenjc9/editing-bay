@@ -86,7 +86,7 @@ Claude Code 的 skills 資料夾是 `~/.claude/skills/`；其他 agent 的路徑
 <p align="center"><img src="docs/card-exits.jpg" width="560" alt="兩個輸出：直接輸出影片，或導進剪映"></p>
 <p align="center"><img src="docs/card-tracks.jpg" width="560" alt="剪映時間軸實拍：每種素材各自一軌"></p>
 
-試試看（不需要安裝任何東西）：`python3 skill/editing-bay/tools/capcut_export.py examples/capcut-export-sample/spec.json --dry-run`。要真的寫草稿，先自己安裝 `pycapcut`（裝前請確認來源與授權），再拿掉 `--dry-run`。上圖是這個工具產出的 58.9 秒草稿在剪映裡開起來的時間軸（實際截圖）。範例時間表是 7 秒：2 段畫面、2 張字卡、1 首配樂、2 個音效。草稿只放素材與時間，**遮罩聚焦、定位框、自製調色不在草稿裡**，要的話在剪映自己補；開起來的樣子也請你自己在剪映確認。圖的 HTML 原始碼在 `docs/src/`。
+試試看（不需要安裝任何東西）：`python3 skill/editing-bay/tools/capcut_export.py examples/capcut-export-sample/spec.json --dry-run`。要真的寫草稿，先自己安裝 `pycapcut`（裝前請確認來源與授權），再拿掉 `--dry-run`。上圖是這個工具產出的 58.9 秒草稿在剪映裡開起來的時間軸（實際截圖）。範例時間表是 7 秒：2 段畫面、2 張字卡、1 首配樂、2 個音效。畫面片段可加 `look`（亮度／對比／飽和）與 `filter`（濾鏡名稱與強度）。草稿只放素材、時間、簡單調光與濾鏡，**遮罩聚焦、定位框、自製調色不在草稿裡**，要的話在剪映自己補；開起來的樣子也請你自己在剪映確認。圖的 HTML 原始碼在 `docs/src/`。
 
 ## 工具與軟體
 

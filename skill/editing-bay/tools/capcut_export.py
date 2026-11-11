@@ -60,6 +60,21 @@ def main():
             if 'src' in s:
                 q = os.path.expanduser(s['src'])
                 if not os.path.exists(q if os.path.isabs(q) else os.path.join(base, q)): die(f"找不到素材：{s['src']}")
+    # 濾鏡名稱先驗證（試跑也驗），寫錯就在動手前報錯、列出相近名稱
+    if True:
+        _names = None
+        for tr in spec['tracks']:
+            for s in tr['segments']:
+                f = s.get('filter')
+                if not f: continue
+                if tr['type'] != 'video': die('filter 只能放在 video 軌的片段上')
+                if _names is None:
+                    try: _names = set(n for n in dir(__import__('pycapcut').FilterType) if not n.startswith('_'))
+                    except ImportError: _names = None
+                nm = f.get('name') if isinstance(f, dict) else f
+                if _names is not None and nm not in _names:
+                    near = [n for n in sorted(_names) if str(nm).lower()[:3] in n.lower()][:8]
+                    die(f"找不到濾鏡「{nm}」；相近的：{', '.join(near) or '（無）'}")
     # 只有「輸出位置在剪映自己的草稿目錄裡」才需要它完全退出；寫到別的資料夾不受影響
     _dd = os.path.realpath(os.path.expanduser(override or spec.get('drafts_dir', '~/CapCut草稿')))
     if not dry and 'com.lveditor.draft' in _dd and subprocess.run(['pgrep', '-x', 'CapCut'], capture_output=True).stdout.strip():
@@ -101,6 +116,9 @@ def main():
                         seg.add_keyframe(cc.KeyframeProperty.uniform_scale, f'{dur}s', float(z1))
                     for prop, val in (s.get('look') or {}).items():   # 調光：亮度／對比／飽和（-1～1，0＝原始）
                         seg.add_keyframe(getattr(cc.KeyframeProperty, prop), 0, float(val))
+                    if s.get('filter'):   # 濾鏡：{"name": FilterType 名稱, "intensity": 0～100}；也可直接寫名稱字串
+                        f = s['filter']; nm = f if isinstance(f, str) else f['name']
+                        seg.add_filter(getattr(cc.FilterType, nm), 100.0 if isinstance(f, str) else float(f.get('intensity', 100)))
                 else:
                     seg = cc.AudioSegment(src, tgt, **kw)
                     if 'fade' in s: seg.add_fade(f"{s['fade'][0]}s", f"{s['fade'][1]}s")
